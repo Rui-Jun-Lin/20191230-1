@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Colorlib Villa</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Mukta+Mahee:200,300,400|Playfair+Display:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/aos.css">
+    <link rel="stylesheet" href="fonts/ionicons/css/ionicons.min.css">
+    <link rel="stylesheet" href="fonts/fontawesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.7.1/firebase.js"></script>
+    <script>
+      var firebaseConfig = {
+        apiKey: "AIzaSyCyBi7E7yKfDoi1PGVxFFIC8a_5RFh7HH0",
+        authDomain: "test-e7b06.firebaseapp.com",
+        databaseURL: "https://test-e7b06.firebaseio.com",
+        projectId: "test-e7b06",
+        storageBucket: "test-e7b06.appspot.com",
+        messagingSenderId: "917313630163",
+        appId: "1:917313630163:web:bf6ac0059fe8cadfcc0926",
+        measurementId: "G-Q2HST10VSR"
+      };
+      firebase.initializeApp(firebaseConfig);
+    </script>
+
+    <script>
+        $(document).ready(function(){  
+            $("#SignIn").click(function(){
+                var email         = $('#email').val();
+                var password    = $('#pwd').val();
+                firebase.auth().signInWithEmailAndPassword(email, password).catch((error) => {
+              // Handle Errors here.
+              const errorCode = error.code;
+              const errorMessage = error.message;
+              // ...
+              alert(errorMessage)
+            })
+            });
+            firebase.auth().onAuthStateChanged(function(user) {
+              if (user) {    
+                document.getElementById("mbs").innerHTML=user.email;
+                document.getElementById("SignOut").style.display="block";
+              } else {
+                document.getElementById("mbs").innerHTML="Not Signed";
+                document.getElementById("SignOut").style.display="none";
+              }
+            });
+            $("#SignOut").click(function(){
+              firebase.auth().signOut().then(function() {
+                console.log("User sign out!");
+              }, function(error) {
+                console.log("User sign out error!");
+              })
+            });                         
+        });         
+    </script>
+  </head>
+  <body>
+    
+    <header class="site-header">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-4 site-logo" data-aos="fade"><a href="index.html"><em>HotelBooking</em></a></div>
+          <div class="col-8">
+            <div class="site-menu-toggle js-site-menu-toggle"  data-aos="fade">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+            <div class="site-navbar js-site-navbar">
+              <nav role="navigation">
+                <div class="container">
+                  <div class="row full-height align-items-center">
+                    <div class="col-md-6">
+                      <ul class="list-unstyled menu">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="hotel.html">Hotel</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li class="active"><a href="Login.html">Login</a></li>
+                      </ul>
+                    </div>
+                    <div class="col-md-6 extra-info">
+                      <div class="row">
+                        <div class="col-md-6 mb-5">
+                          <h3>Contact Info</h3>
+                          <p>No 129,Section 3,Sanmin Road<br>North District,Taichung City<br>Taiwan</p>
+                          <p>info@google.com</p>
+                          <p>(+886) 8888 8888</p>
+                        </div>
+                        <div class="col-md-6">
+                          <h3>Connect With Us</h3>
+                          <ul class="list-unstyled">
+                            <li><a href="#">Twitter</a></li>
+                            <li><a href="#">Facebook</a></li>
+                            <li><a href="#">Instagram</a></li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <h3>Member:</h3>
+                          <p id="mbs">Not Signed</p>
+                          <button id="SignOut" class="btn btn-primary" style="display:none">登出</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section class="site-hero overlay page-inside" style="background-image: url(img/hero_2.jpg)">
+      <div class="container">
+        <div class="row site-hero-inner justify-content-center align-items-center">
+          <div class="col-md-10 text-center">
+            <h1 class="heading" data-aos="fade-up">Login</h1>
+            <p class="sub-heading mb-5" data-aos="fade-up" data-aos-delay="100">Login Member.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section bg-primary contact-section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="bg-white p-md-5 p-4 mb-5" style="margin-top: -150px;">
+              <div class="row">
+                <div class="col-md-12 form-group">
+                  <label for="name">Email</label>
+                  <input type="text" id="email" name="name" class="form-control">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12 form-group">
+                  <label for="phone">Password</label>
+                  <input type="password" id="pwd" name="phone" class="form-control ">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 form-group">
+                  <input type="button" id="SignIn" value="Signin" class="btn btn-primary">
+                  <input type="button" value="Register
+" onclick="javascript:location.href='register.html'" class="btn btn-primary">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <footer class="section footer-section">
+      <div class="container">
+        <div class="row mb-4">
+          <div class="col-md-3 mb-5">
+            <ul class="list-unstyled link">
+              <li><a href="#">About Us</a></li>
+              <li><a href="#">Terms &amp; Conditions</a></li>
+              <li><a href="#">Privacy Policy</a></li>
+              <li><a href="#">Help</a></li>
+             <li><a href="#">Rooms</a></li>
+            </ul>
+          </div>
+          <div class="col-md-3 mb-5">
+            <ul class="list-unstyled link">
+              <li><a href="#">Our Location</a></li>
+              <li><a href="#">The Hosts</a></li>
+              <li><a href="#">About</a></li>
+              <li><a href="#">Contact</a></li>
+              <li><a href="#">Restaurant</a></li>
+            </ul>
+          </div>
+          <div class="col-md-3 mb-5 pr-md-5 contact-info">
+            <p><span class="d-block">Address:</span> <span>No 129,Section 3,Sanmin Road,North District,Taichung City,Taiwan</span></p>
+            <p><span class="d-block">Phone:</span> <span> (+886) 8888 8888</span></p>
+            <p><span class="d-block">Email:</span> <span> info@google.com</span></p>
+          </div>
+          <div class="col-md-3 mb-5">
+            <p>Sign up for our newsletter</p>
+            <form action="#" class="footer-newsletter">
+              <div class="form-group">
+                <input type="email" class="form-control" placeholder="Your email...">
+                <button type="submit" class="btn"><span class="fa fa-paper-plane"></span></button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="row bordertop pt-5">
+          <p class="col-md-12 text-right social">
+            <a href="#"><span class="fa fa-tripadvisor"></span></a>
+            <a href="#"><span class="fa fa-facebook"></span></a>
+            <a href="#"><span class="fa fa-twitter"></span></a>
+          </p>
+        </div>
+      </div>
+    </footer>
+    
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/jquery.waypoints.min.js"></script>
+    <script src="js/aos.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>
