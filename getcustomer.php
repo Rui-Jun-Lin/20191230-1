@@ -1,5 +1,5 @@
 <?php
-$mysqli = new mysqli("127.0.0.1", "root", "", "newblance");
+$mysqli = new mysqli("192.168.43.198", "root", "", "newblance");
 if($mysqli->connect_error) {
   exit('Could not connect');
 }
